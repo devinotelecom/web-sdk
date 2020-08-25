@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="devino-web-sdk.js"></script>
+    <script>
+      Devino.init();
+    </script>
+  </head>
+  <body>
+    <div>
+      <button
+        onclick="Devino.updateCustomerData({email:'test@test.ru', phone:'88005553535', pushToken:'qweqwe',customData:{additionalProp1: 'string1',additionalProp2: 'string2',}})"
+      >
+        Update Customer Data
+      </button>
+      <button onclick="Devino.customerSubscribe({subscriptionChannel:'PUSH', subscribed:true})">
+        Customer Subscibe
+      </button>
+      <button
+        onclick="Devino.sendEvent({eventName:'addToCart', eventData:{additionalProp1:'string1',additionalProp2:'string2'}})"
+      >
+        Send Event
+      </button>
+    </div>
+    <br />
+    <div>
+      <button onclick="Devino.askNotificationPermission()">
+        Ask Notification Permission
+      </button>
+      <button onclick="Devino.subscribeUserToPush()">
+        Subscibe User to Push
+      </button>
+    </div>
+  </body>
+</html>

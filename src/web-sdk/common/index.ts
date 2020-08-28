@@ -48,6 +48,7 @@ export const getVariables = () => {
     SERVICE_WORKER_NAME,
     APPLICATION_SERVER_KEY,
     WEB_PUSH_ENABLED,
+    WATCH_URL,
   };
 };
 

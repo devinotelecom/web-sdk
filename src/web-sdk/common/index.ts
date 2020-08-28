@@ -3,12 +3,11 @@ import { sendEvent } from '../triggers/index';
 import { checkPushSubscription } from '../web-push/index';
 import { InitParams } from '../types';
 
-const EMAIL_URL_MARKER = 'email_marker';
 const APPLICATION_SERVER_KEY =
   'BCDbS01NFg77PBFmXW7LEtik9Wcq1fRsDvHBhjQCkpUi3S17veh6MpZisJbNuoqSyEKftw0HOu4CbkyvXAQrEMY';
 
 let BASE_URL = process.env.BASE_URL;
-let IS_EMAIL_WATCHED = false;
+let URL_WATCHER_ENABLED = false;
 let SERVICE_WORKER_NAME = 'sw';
 let WEB_PUSH_ENABLED = false;
 
@@ -19,9 +18,9 @@ export const init = ({ baseUrl, serviceWorkerName = 'sw', webPush = false }: Ini
   SERVICE_WORKER_NAME = serviceWorkerName;
   WEB_PUSH_ENABLED = webPush;
   baseUrl && (BASE_URL = baseUrl);
-  if (!IS_EMAIL_WATCHED) {
-    sendEventIfUrlHasMarker(window.location.href);
-    IS_EMAIL_WATCHED = true;
+  if (!URL_WATCHER_ENABLED) {
+    watchUrl();
+    URL_WATCHER_ENABLED = true;
   }
 
   if (WEB_PUSH_ENABLED) {
@@ -37,7 +36,7 @@ export const init = ({ baseUrl, serviceWorkerName = 'sw', webPush = false }: Ini
 export const getVariables = () => {
   return {
     BASE_URL,
-    IS_EMAIL_WATCHED,
+    URL_WATCHER_ENABLED,
     SERVICE_WORKER_NAME,
     APPLICATION_SERVER_KEY,
     WEB_PUSH_ENABLED,
@@ -45,20 +44,18 @@ export const getVariables = () => {
 };
 
 /**
- * Url watcher, to send event if url has email marker
+ * Url watcher
  */
-const watchEmailMarkerInUrl = () => {
-  sendEventIfUrlHasMarker(window.location.href);
-  onURLChange(sendEventIfUrlHasMarker);
+const watchUrl = () => {
+  sendPageViewEvent(window.location.href);
+  onURLChange(sendPageViewEvent);
 };
 
 /**
- * Send event if url param has marker
+ * Send page view event
  *
- * @param {string} url - url to check marker
+ * @param {string} url - url
  */
-const sendEventIfUrlHasMarker = (url: string) => {
-  if (new RegExp(EMAIL_URL_MARKER).test(url)) {
-    sendEvent({ eventName: 'EMAIL_LINK', eventData: { url } });
-  }
+const sendPageViewEvent = (url: string) => {
+  sendEvent({ eventName: 'DevinoPageView', eventData: { url } });
 };

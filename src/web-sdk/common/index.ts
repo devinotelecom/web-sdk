@@ -10,16 +10,24 @@ let BASE_URL = process.env.BASE_URL;
 let URL_WATCHER_ENABLED = false;
 let SERVICE_WORKER_NAME = 'sw';
 let WEB_PUSH_ENABLED = false;
+let WATCH_URL = false;
 
 /**
  * Initialize basic configuration
  */
-export const init = ({ baseUrl, serviceWorkerName = 'sw', webPush = false }: InitParams = {}) => {
+export const init = ({
+  baseUrl,
+  serviceWorkerName = 'sw',
+  webPush = false,
+  watchUrl = true,
+}: InitParams = {}) => {
   SERVICE_WORKER_NAME = serviceWorkerName;
   WEB_PUSH_ENABLED = webPush;
+  WATCH_URL = watchUrl;
   baseUrl && (BASE_URL = baseUrl);
-  if (!URL_WATCHER_ENABLED) {
-    watchUrl();
+
+  if (WATCH_URL && !URL_WATCHER_ENABLED) {
+    startWatchUrl();
     URL_WATCHER_ENABLED = true;
   }
 
@@ -46,7 +54,7 @@ export const getVariables = () => {
 /**
  * Url watcher
  */
-const watchUrl = () => {
+const startWatchUrl = () => {
   sendPageViewEvent(window.location.href);
   onURLChange(sendPageViewEvent);
 };

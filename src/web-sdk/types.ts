@@ -18,6 +18,7 @@ export interface SendEventeParams {
 export interface InitParams {
   baseUrl?: string;
   webPush?: boolean;
+  watchUrl?: boolean;
   serviceWorkerName?: string;
 }
 

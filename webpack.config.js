@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const dotenv = require('dotenv').config();
 
 module.exports = (env) => {
-  let BASE_URL = '';
+  let BASE_URL = 'https://devino.online/api/address-book-event-api';
   if (env && env.BASE_URL) {
     BASE_URL = env.BASE_URL;
   } else if (dotenv.parsed && dotenv.parsed.BASE_URL) {

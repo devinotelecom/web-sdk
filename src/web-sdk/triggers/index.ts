@@ -1,5 +1,6 @@
-import { fetchFactory, handleErrors } from '../helpers/index';
-import { CustomerData, CustomerSubscribeParams, SendEventeParams } from '../types';
+import { fetchFactory, handleErrors } from '../../helpers/index';
+import { getVariables } from '../common/index';
+import { CustomerData, CustomerSubscribeParams, SendEventeParams } from '../../types';
 
 /**
  * Update customer data
@@ -16,7 +17,9 @@ export const updateCustomerData = ({
   pushToken,
   customData = {},
 }: CustomerData): Promise<any> => {
-  return fetchFactory('/customers/data', {
+  const { BASE_URL } = getVariables();
+
+  return fetchFactory(`${BASE_URL}/customers/data`, {
     method: 'PUT',
     body: JSON.stringify({
       email,
@@ -43,7 +46,9 @@ export const customerSubscribe = ({
   subscriptionChannel,
   subscribed,
 }: CustomerSubscribeParams): Promise<any> => {
-  return fetchFactory('/customers/subscription', {
+  const { BASE_URL } = getVariables();
+
+  return fetchFactory(`${BASE_URL}/customers/subscription`, {
     method: 'PUT',
     body: JSON.stringify({
       subscriptionChannel,
@@ -65,7 +70,9 @@ export const customerSubscribe = ({
  * @returns {Promise}
  */
 export const sendEvent = ({ eventName, eventData = {} }: SendEventeParams): Promise<any> => {
-  return fetchFactory('/customers/event', {
+  const { BASE_URL } = getVariables();
+
+  return fetchFactory(`${BASE_URL}/customers/event`, {
     method: 'POST',
     body: JSON.stringify({
       eventName,

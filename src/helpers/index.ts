@@ -1,10 +1,7 @@
-import { getVariables } from '../common/index';
 import { LocalStorage } from '../types';
 
 export const fetchFactory = (url: string, settings = {} as RequestInit) => {
-  const { BASE_URL } = getVariables();
-
-  return fetch(`${BASE_URL}${url}`, {
+  return fetch(url, {
     credentials: 'include',
     ...settings,
     headers: {

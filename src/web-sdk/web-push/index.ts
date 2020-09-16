@@ -1,4 +1,4 @@
-import { urlBase64ToUint8Array, setEndpointToStore, getEndpointFromStore } from '../helpers/index';
+import { urlBase64ToUint8Array, setEndpointToStore, getEndpointFromStore } from '../../helpers/index';
 import { getVariables } from '../common/index';
 
 /**

@@ -1,7 +1,7 @@
-import { onURLChange } from '../helpers/index';
+import { onURLChange } from '../../helpers/index';
 import { sendEvent } from '../triggers/index';
 import { checkPushSubscription } from '../web-push/index';
-import { InitParams } from '../types';
+import { InitParams } from '../../types';
 
 const APPLICATION_SERVER_KEY =
   'BCDbS01NFg77PBFmXW7LEtik9Wcq1fRsDvHBhjQCkpUi3S17veh6MpZisJbNuoqSyEKftw0HOu4CbkyvXAQrEMY';

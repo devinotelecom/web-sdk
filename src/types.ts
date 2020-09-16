@@ -26,3 +26,9 @@ export interface LocalStorage {
   getItem?(key: string): string | null;
   setItem?(key: string, value: string): void;
 }
+
+declare global {
+  interface Window {
+    registration: ServiceWorkerRegistration;
+  }
+}
